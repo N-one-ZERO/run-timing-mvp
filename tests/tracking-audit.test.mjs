@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { REGIONS, getDistrictCount } from "../regions.mjs";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const app = await readFile(new URL("../app.js", import.meta.url), "utf8");
@@ -13,8 +14,16 @@ test("one-screen recurring schedule flow contains all scenes", () => {
   for (const scene of ["intro", "location", "days", "time", "temperature", "rain", "loading", "result"]) {
     assert.match(html, new RegExp(`data-scene=["']${scene}["']`));
   }
-  assert.match(html, /구·군/);
+  assert.match(html, /시·군·구/);
   assert.match(html, /반복 알림/);
+});
+
+test("nationwide city and district data is available", () => {
+  assert.equal(Object.keys(REGIONS).length, 17);
+  assert.ok(getDistrictCount() >= 240);
+  assert.ok(REGIONS["경기도"].includes("수원시 권선구"));
+  assert.ok(REGIONS["강원특별자치도"].includes("양양군"));
+  assert.ok(REGIONS["제주특별자치도"].includes("서귀포시"));
 });
 
 test("core KPI events and diagnostic events are implemented", () => {
