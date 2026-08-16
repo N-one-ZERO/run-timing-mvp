@@ -1,22 +1,25 @@
 # RunTiming 1차 MVP
 
-러닝 예정 시간의 체감온도와 강수확률을 개인 기준과 비교해 즉시 적합 여부를 보여주는 인터랙티브 랜딩페이지입니다.
+평소 러닝 요일·시간과 날씨 기준을 한 번 설정하면 반복 일정마다 날씨를 대신 확인하고 알림을 주는 경험을 검증하는 인터랙티브 랜딩페이지입니다.
 
 ## 주요 기능
 
-- 국내 주요 지역 또는 현재 위치 선택
-- 7일 이내 러닝 예정 시각 설정
+- 국내 주요 지역의 구·군 또는 현재 위치 선택
+- 반복 요일과 평소 러닝 시작 시각 설정
 - 허용 체감온도 및 강수확률 설정
-- Open-Meteo 시간대별 예보 기반 적합·부적합 판정
+- Open-Meteo 시간대별 예보로 첫 반복 일정 미리보기
 - GA4 핵심 퍼널 이벤트 수집
 - 모바일·데스크톱 반응형 화면
 
+한 화면에서 `구·군 → 반복 요일 → 시작 시각 → 체감온도 → 강수 기준 → 첫 일정 미리보기` 순으로 진행합니다. 반복 알림 CTA는 수요 검증용입니다.
+
 ## GA4 이벤트
 
-- `landing_viewed`
-- `demo_started`
-- `demo_completed`
-- `alert_setup_clicked`
+- 핵심 KPI: `landing_viewed`, `demo_started`, `demo_completed`, `alert_setup_clicked`
+- 이탈 진단: `demo_step_viewed`, `demo_step_completed`, `demo_back_clicked`, `demo_abandoned`
+- 품질 진단: `weather_fetch_failed`, `demo_retried`, `demo_retry_started`
+
+핵심 KPI 이벤트는 한 페이지 세션에서 최초 한 번만 전송해 반복 클릭으로 인한 전환율 왜곡을 방지합니다. 모든 커스텀 이벤트에는 `page_variant=recurring_quiz_v2`가 포함됩니다.
 
 GA4 DebugView 확인 시 배포 URL 뒤에 `?debug=1`을 붙입니다.
 
@@ -31,7 +34,7 @@ python -m http.server 4173
 판정 로직 테스트:
 
 ```bash
-node --test tests/logic.test.mjs
+node --test tests/logic.test.mjs tests/tracking-audit.test.mjs
 ```
 
 ## 배포

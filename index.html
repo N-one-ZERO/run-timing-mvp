@@ -3,25 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="러닝 예정 시간의 날씨를 내 조건과 비교해 오늘 달릴지 바로 알려주는 런타이밍 체험판"
-    />
-    <meta name="theme-color" content="#121a31" />
-    <meta property="og:title" content="런타이밍 | 날씨 확인 대신, 러닝 결정만" />
-    <meta
-      property="og:description"
-      content="지역과 러닝 조건을 입력하면 예정 시간의 체감온도와 강수확률을 바로 판정해 드려요."
-    />
+    <meta name="description" content="러닝 요일과 시간을 한 번 정하면 날씨를 대신 확인하고 달리기 좋은 순간을 알려주는 런타이밍 MVP" />
+    <meta name="theme-color" content="#dff7ea" />
+    <meta property="og:title" content="런타이밍 | 날씨 확인은 맡기고, 러닝만 준비하세요" />
+    <meta property="og:description" content="반복 러닝 일정과 나만의 날씨 기준을 1분 안에 설정해보세요." />
     <meta property="og:type" content="website" />
-    <title>런타이밍 | 날씨 확인 대신, 러닝 결정만</title>
+    <title>런타이밍 | 반복 러닝 날씨 알림</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GZ549TMQ6"></script>
@@ -33,196 +24,203 @@
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#demo">체험 영역으로 바로가기</a>
+    <a class="skip-link" href="#flow">설정 시작하기</a>
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="런타이밍 처음으로">
-        <span class="brand-mark" aria-hidden="true">R</span>
-        <span>RunTiming</span>
-      </a>
-      <a class="header-cta" href="#demo" data-start-demo>내 조건으로 확인하기</a>
-    </header>
+    <main class="app-shell" id="flow">
+      <header class="topbar">
+        <button class="back-button" id="back-button" type="button" aria-label="이전 질문" hidden>←</button>
+        <a class="brand" href="#" id="brand-home" aria-label="런타이밍 처음으로">
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <span>RunTiming</span>
+        </a>
+        <span class="mvp-badge">MVP</span>
+      </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span></span> PERSONAL WEATHER ROUTINE</p>
-          <h1 id="hero-title">날씨 확인 대신,<br /><em>러닝 결정만.</em></h1>
-          <p class="hero-description">
-            러닝 예정 시간과 나만의 기준을 입력하면<br class="desktop-only" />
-            체감온도와 강수확률을 비교해 바로 알려드려요.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#demo" data-start-demo>
-              지금 날씨 판정해보기 <span aria-hidden="true">→</span>
-            </a>
-            <span class="no-signup">회원가입 없이 1분이면 충분해요</span>
+      <section class="progress-wrap" id="progress-wrap" aria-label="설정 진행률" hidden>
+        <div class="progress-copy">
+          <span id="progress-label">지역 설정</span>
+          <strong><span id="progress-current">1</span> / 5</strong>
+        </div>
+        <div class="progress-track"><span id="progress-fill"></span></div>
+      </section>
+
+      <div class="scene-stage">
+        <section class="scene intro-scene is-active" data-scene="intro" aria-labelledby="intro-title">
+          <div class="intro-copy">
+            <p class="eyebrow">PERSONAL RUNNING ROUTINE</p>
+            <h1 id="intro-title">날씨 확인은 맡기고,<br /><em>러닝만 준비하세요.</em></h1>
+            <p class="lead">
+              평소 달리는 요일과 시간만 한 번 정해두세요.<br />
+              런타이밍이 매번 날씨를 확인해 달리기 좋은 순간을 알려드려요.
+            </p>
+            <button class="primary-button start-button" id="start-button" type="button">
+              내 반복 알림 만들기 <span aria-hidden="true">→</span>
+            </button>
+            <p class="microcopy">회원가입 없이 약 1분 · 알림 설정 의향 확인용 MVP</p>
           </div>
-        </div>
 
-        <div class="hero-visual" aria-label="런타이밍 날씨 판정 예시">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <article class="preview-card">
-            <div class="preview-topline">
-              <span>오늘의 러닝 판정</span>
-              <span class="live-dot">LIVE</span>
+          <div class="routine-preview" aria-label="반복 러닝 알림 예시">
+            <div class="preview-orbit"></div>
+            <article class="notification-card">
+              <div class="notification-head">
+                <span class="app-icon">R</span>
+                <div><strong>런타이밍</strong><small>월·수·금 오후 7:30</small></div>
+                <span class="now">지금</span>
+              </div>
+              <h2>오늘은 달리기 좋은 날이에요!</h2>
+              <p>체감 17°C · 강수확률 10%<br />평소 러닝까지 30분 남았어요.</p>
+            </article>
+            <span class="floating-chip chip-one">매주 자동 확인</span>
+            <span class="floating-chip chip-two">내 기준으로 판단</span>
+          </div>
+        </section>
+
+        <section class="scene question-scene" data-scene="location" data-step="1" aria-labelledby="location-title" hidden>
+          <div class="question-copy">
+            <span class="question-number">Q1</span>
+            <h2 id="location-title">주로 어디에서 달리나요?</h2>
+            <p>이 지역의 예보를 반복 일정마다 자동으로 확인해요.</p>
+          </div>
+          <div class="location-picker">
+            <div class="picker-column">
+              <span class="picker-label">1. 광역 지역</span>
+              <div class="region-grid" id="region-options" aria-label="광역 지역 선택"></div>
             </div>
-            <div class="weather-glyph" aria-hidden="true">☀</div>
-            <strong>달리기 좋은 날이에요!</strong>
-            <p>오후 9시 · 서울</p>
-            <div class="preview-stats">
-              <div><span>체감온도</span><b>17°C</b></div>
-              <div><span>강수확률</span><b>10%</b></div>
+            <div class="picker-column district-column is-waiting" id="district-column">
+              <span class="picker-label">2. 구·군</span>
+              <p class="district-placeholder" id="district-placeholder">먼저 광역 지역을 선택해주세요.</p>
+              <div class="district-grid" id="district-options" aria-label="구·군 선택"></div>
             </div>
-          </article>
-          <div class="floating-note note-one"><b>30분 전</b><span>결정할 타이밍</span></div>
-          <div class="floating-note note-two"><b>내 기준</b><span>자동 비교</span></div>
-        </div>
-      </section>
+          </div>
+          <button class="subtle-button" id="use-location" type="button"><span aria-hidden="true">◎</span> 현재 위치 사용하기</button>
+          <p class="inline-error" id="location-error" role="alert" hidden></p>
+        </section>
 
-      <section class="problem-strip" aria-label="서비스 핵심 변화">
-        <p>날씨 앱 열기</p><span>→</span><p>시간대 찾기</p><span>→</span><p>조건 비교하기</p>
-        <strong>이제 한 번의 판정으로 끝내세요.</strong>
-      </section>
+        <section class="scene question-scene" data-scene="days" data-step="2" aria-labelledby="days-title" hidden>
+          <div class="question-copy">
+            <span class="question-number">Q2</span>
+            <h2 id="days-title">평소 어느 요일에 달리나요?</h2>
+            <p>여러 요일을 선택할 수 있어요.</p>
+          </div>
+          <div class="day-grid" id="day-options" aria-label="반복 요일 선택">
+            <button class="day-button" type="button" data-day="1" aria-pressed="false"><b>월</b><small>MON</small></button>
+            <button class="day-button" type="button" data-day="2" aria-pressed="false"><b>화</b><small>TUE</small></button>
+            <button class="day-button" type="button" data-day="3" aria-pressed="false"><b>수</b><small>WED</small></button>
+            <button class="day-button" type="button" data-day="4" aria-pressed="false"><b>목</b><small>THU</small></button>
+            <button class="day-button" type="button" data-day="5" aria-pressed="false"><b>금</b><small>FRI</small></button>
+            <button class="day-button weekend" type="button" data-day="6" aria-pressed="false"><b>토</b><small>SAT</small></button>
+            <button class="day-button weekend" type="button" data-day="0" aria-pressed="false"><b>일</b><small>SUN</small></button>
+          </div>
+          <div class="scene-actions">
+            <span class="selection-hint" id="day-hint">요일을 한 개 이상 선택해주세요.</span>
+            <button class="primary-button compact" id="days-next" type="button" disabled>시간 정하기 <span>→</span></button>
+          </div>
+        </section>
 
-      <section class="demo-section" id="demo" aria-labelledby="demo-title">
-        <div class="section-heading">
-          <p class="eyebrow"><span></span> TRY IT NOW</p>
-          <h2 id="demo-title">내 러닝 조건으로<br />예정 시간의 날씨를 확인해보세요.</h2>
-          <p>예보 수치만 보여주지 않고, 입력한 기준에 맞는지 함께 판단합니다.</p>
-        </div>
+        <section class="scene question-scene" data-scene="time" data-step="3" aria-labelledby="time-title" hidden>
+          <div class="question-copy">
+            <span class="question-number">Q3</span>
+            <h2 id="time-title">보통 몇 시에 러닝을 시작하나요?</h2>
+            <p>선택한 요일마다 같은 시각을 기준으로 알려드려요.</p>
+          </div>
+          <div class="choice-grid time-grid" id="time-options">
+            <button class="choice-button time-choice" type="button" data-time="06:00"><span>이른 아침</span><strong>오전 6:00</strong></button>
+            <button class="choice-button time-choice" type="button" data-time="07:30"><span>출근 전</span><strong>오전 7:30</strong></button>
+            <button class="choice-button time-choice" type="button" data-time="19:30"><span>저녁</span><strong>오후 7:30</strong></button>
+            <button class="choice-button time-choice" type="button" data-time="21:00"><span>늦은 저녁</span><strong>오후 9:00</strong></button>
+          </div>
+          <label class="custom-time">
+            <span>직접 입력</span>
+            <input id="custom-time" type="time" value="20:00" aria-label="러닝 시작 시각 직접 입력" />
+            <button id="custom-time-next" type="button">이 시간으로 선택</button>
+          </label>
+        </section>
 
-        <div class="demo-shell">
-          <ol class="steps" aria-label="날씨 판정 단계">
-            <li class="step is-active" data-step-indicator="1"><span>1</span><p><b>일정</b><small>지역과 시간</small></p></li>
-            <li class="step" data-step-indicator="2"><span>2</span><p><b>내 기준</b><small>온도와 비</small></p></li>
-            <li class="step" data-step-indicator="3"><span>3</span><p><b>판정</b><small>결과 확인</small></p></li>
-          </ol>
+        <section class="scene question-scene" data-scene="temperature" data-step="4" aria-labelledby="temperature-title" hidden>
+          <div class="question-copy">
+            <span class="question-number">Q4</span>
+            <h2 id="temperature-title">달리기 좋은 체감온도는?</h2>
+            <p>처음이라면 추천 범위인 10–25°C를 그대로 사용해보세요.</p>
+          </div>
+          <div class="range-card">
+            <output id="temp-output" for="temp-min temp-max">10°C – 25°C</output>
+            <div class="dual-range">
+              <div class="range-track" aria-hidden="true"><span id="temp-range-fill"></span></div>
+              <input id="temp-min" type="range" min="-10" max="35" value="10" step="1" aria-label="최저 체감온도" />
+              <input id="temp-max" type="range" min="-10" max="35" value="25" step="1" aria-label="최고 체감온도" />
+            </div>
+            <div class="range-labels"><span>-10°C</span><span>35°C</span></div>
+          </div>
+          <div class="preset-row" aria-label="체감온도 추천 범위">
+            <button type="button" data-temp-preset="5,18">선선하게</button>
+            <button class="is-selected" type="button" data-temp-preset="10,25">추천 범위</button>
+            <button type="button" data-temp-preset="15,30">따뜻하게</button>
+          </div>
+          <div class="scene-actions end"><button class="primary-button compact" id="temperature-next" type="button">비 기준 정하기 <span>→</span></button></div>
+        </section>
 
-          <form id="weather-form" novalidate>
-            <div class="form-panel is-active" data-step-panel="1">
-              <div class="panel-heading">
-                <span class="panel-number">01</span>
-                <div><h3>언제, 어디서 달릴 예정인가요?</h3><p>예정 시간과 가장 가까운 시간대의 예보를 확인해요.</p></div>
-              </div>
+        <section class="scene question-scene" data-scene="rain" data-step="5" aria-labelledby="rain-title" hidden>
+          <div class="question-copy">
+            <span class="question-number">Q5</span>
+            <h2 id="rain-title">비 예보는 어디까지 괜찮나요?</h2>
+            <p>선택하면 첫 번째 반복 일정의 날씨를 바로 미리 확인해요.</p>
+          </div>
+          <div class="choice-list rain-list" id="rain-options">
+            <button class="choice-button" type="button" data-rain="0"><span class="weather-dot dry">☀</span><span><strong>비가 오면 안 돼요</strong><small>강수확률 0%만 알림</small></span><b>0%</b></button>
+            <button class="choice-button" type="button" data-rain="20"><span class="weather-dot light">☁</span><span><strong>조금 흐려도 괜찮아요</strong><small>추천 기준</small></span><b>20%</b></button>
+            <button class="choice-button" type="button" data-rain="40"><span class="weather-dot cloudy">☂</span><span><strong>약한 비 가능성까지</strong><small>가벼운 우천 대비</small></span><b>40%</b></button>
+            <button class="choice-button" type="button" data-rain="60"><span class="weather-dot rain">☔</span><span><strong>비가 와도 달릴래요</strong><small>날씨 영향이 적어요</small></span><b>60%</b></button>
+          </div>
+          <p class="inline-error" id="weather-error" role="alert" hidden></p>
+        </section>
 
-              <div class="field-grid">
-                <label class="field">
-                  <span>러닝 지역</span>
-                  <select id="location" name="location" required>
-                    <option value="37.5665,126.9780,서울">서울</option>
-                    <option value="37.2636,127.0286,수원">수원</option>
-                    <option value="37.4563,126.7052,인천">인천</option>
-                    <option value="36.3504,127.3845,대전">대전</option>
-                    <option value="35.1796,129.0756,부산">부산</option>
-                    <option value="35.8714,128.6014,대구">대구</option>
-                    <option value="35.1595,126.8526,광주">광주</option>
-                    <option value="33.4996,126.5312,제주">제주</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>러닝 예정 시각</span>
-                  <input id="planned-time" name="planned-time" type="datetime-local" required />
-                </label>
-              </div>
+        <section class="scene loading-scene" data-scene="loading" aria-live="polite" hidden>
+          <div class="loading-visual" aria-hidden="true"><span class="runner">●</span><i></i><i></i><i></i></div>
+          <p class="eyebrow">CHECKING YOUR ROUTINE</p>
+          <h2>다음 러닝 일정의 날씨를<br />내 기준과 비교하고 있어요.</h2>
+          <p>반복 알림 미리보기를 만드는 중이에요.</p>
+        </section>
 
-              <button class="location-button" id="use-location" type="button">
-                <span aria-hidden="true">◎</span> 현재 위치로 확인하기
-              </button>
+        <section class="scene result-scene" data-scene="result" aria-labelledby="result-title" aria-live="polite" hidden>
+          <div class="result-layout">
+            <div class="result-main">
+              <span class="result-icon" id="result-icon" aria-hidden="true">✓</span>
+              <p class="eyebrow" id="result-kicker">NEXT RUNNING</p>
+              <h2 id="result-title">다음 일정에는 달리기 좋아요!</h2>
+              <p id="result-description">선택한 날씨 기준을 모두 충족해요.</p>
 
-              <div class="panel-actions panel-actions-end">
-                <button class="button button-primary" type="button" data-next-step="2">내 기준 설정하기 <span>→</span></button>
-              </div>
+              <article class="schedule-card">
+                <span>등록할 반복 일정</span>
+                <strong id="result-schedule">매주 월·수·금 오후 7:30</strong>
+                <p><b>30분 전</b> 날씨를 자동 확인하고 결과를 알려드려요.</p>
+              </article>
             </div>
 
-            <div class="form-panel" data-step-panel="2" hidden>
-              <div class="panel-heading">
-                <span class="panel-number">02</span>
-                <div><h3>어떤 날씨까지 괜찮은가요?</h3><p>처음이라면 쾌적한 러닝을 위한 예시값을 그대로 사용해도 좋아요.</p></div>
-              </div>
-
-              <div class="range-card">
-                <div class="range-header"><label for="temp-min">허용 체감온도</label><output id="temp-output">10°C – 25°C</output></div>
-                <div class="dual-range">
-                  <div class="range-track" aria-hidden="true"><span id="temp-range-fill"></span></div>
-                  <input id="temp-min" name="temp-min" type="range" min="-10" max="35" value="10" step="1" aria-label="최저 체감온도" />
-                  <input id="temp-max" name="temp-max" type="range" min="-10" max="35" value="25" step="1" aria-label="최고 체감온도" />
-                </div>
-                <div class="range-labels"><span>-10°C</span><span>35°C</span></div>
-              </div>
-
-              <div class="range-card">
-                <div class="range-header"><label for="rain-max">허용 강수확률</label><output id="rain-output">20% 이하</output></div>
-                <input id="rain-max" name="rain-max" class="single-range" type="range" min="0" max="100" value="20" step="10" />
-                <div class="range-labels"><span>비가 오면 안 돼요</span><span>비가 와도 괜찮아요</span></div>
-              </div>
-
-              <p class="form-error" id="form-error" role="alert" hidden></p>
-              <div class="panel-actions">
-                <button class="button button-ghost" type="button" data-prev-step="1">← 이전</button>
-                <button class="button button-primary" type="submit" id="judge-button">
-                  <span class="button-label">날씨 판정하기</span><span class="spinner" aria-hidden="true"></span>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-panel result-panel" data-step-panel="3" hidden aria-live="polite">
-              <div class="result-status" id="result-status">
-                <span class="result-icon" id="result-icon" aria-hidden="true">✓</span>
-                <p id="result-kicker">오늘의 판정</p>
-                <h3 id="result-title">달리기 좋은 날이에요!</h3>
-                <p id="result-description">입력한 조건에 모두 맞아요.</p>
-              </div>
-
-              <div class="result-summary">
-                <div><span>예정 시각</span><strong id="result-time">-</strong></div>
+            <div class="result-detail">
+              <div class="next-check"><span>첫 미리보기</span><strong id="result-time">-</strong><small id="result-location">-</small></div>
+              <div class="weather-stats">
                 <div><span>체감온도</span><strong id="result-temp">-</strong></div>
                 <div><span>강수확률</span><strong id="result-rain">-</strong></div>
               </div>
-
               <div class="reason-list" id="reason-list"></div>
-
-              <div class="result-actions">
-                <button class="button button-accent" type="button" id="alert-cta">반복 알림 받아보기 <span>→</span></button>
-                <button class="text-button" type="button" id="retry-button">조건을 바꿔 다시 확인하기</button>
-              </div>
-              <p class="data-source">예보 데이터: <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
+              <button class="primary-button accent wide" id="alert-cta" type="button">이 조건으로 반복 알림 신청하기 <span>→</span></button>
+              <button class="text-button" id="retry-button" type="button">조건을 바꿔 다시 설정하기</button>
             </div>
-          </form>
-        </div>
-      </section>
+          </div>
+          <p class="data-source">예보 데이터: <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
+        </section>
+      </div>
 
-      <section class="how-section" aria-labelledby="how-title">
-        <div class="section-heading compact">
-          <p class="eyebrow"><span></span> HOW IT WORKS</p>
-          <h2 id="how-title">한 번 정하면,<br />다음부터는 판단만 받으세요.</h2>
-        </div>
-        <div class="feature-grid">
-          <article><span class="feature-number">01</span><div class="feature-icon" aria-hidden="true">⌖</div><h3>일정과 조건 설정</h3><p>달릴 시간과 체감온도·강수확률 기준을 정해요.</p></article>
-          <article><span class="feature-number">02</span><div class="feature-icon" aria-hidden="true">☁</div><h3>예정 시간 자동 비교</h3><p>시간대별 예보를 내 기준과 자동으로 비교해요.</p></article>
-          <article><span class="feature-number">03</span><div class="feature-icon" aria-hidden="true">✓</div><h3>결정 근거 확인</h3><p>좋은 날과 좋지 않은 날 모두 이유와 함께 알려줘요.</p></article>
-        </div>
-      </section>
-
-      <section class="closing-cta">
-        <div><p class="eyebrow light"><span></span> RUN AT THE RIGHT TIME</p><h2>오늘 달릴지,<br />검색 없이 결정해보세요.</h2></div>
-        <a class="button button-accent" href="#demo" data-start-demo>내 조건으로 판정하기 <span>→</span></a>
-      </section>
+      <footer class="flow-footer"><span>날씨 확인을 행동 알림으로 바꾸는 개인화 루틴 서비스</span><span>RunTiming © 2026</span></footer>
     </main>
-
-    <footer>
-      <a class="brand footer-brand" href="#top"><span class="brand-mark">R</span><span>RunTiming</span></a>
-      <p>날씨 정보를 행동 결정으로 바꾸는 개인화 루틴 서비스</p>
-      <p class="footer-note">본 페이지는 기말 프로젝트 검증용 MVP입니다. 날씨 데이터는 Open-Meteo를 사용합니다.</p>
-    </footer>
 
     <dialog id="interest-dialog" aria-labelledby="dialog-title">
       <button class="dialog-close" type="button" aria-label="닫기">×</button>
       <span class="dialog-icon" aria-hidden="true">✓</span>
-      <h2 id="dialog-title">관심을 남겨주셔서 감사해요.</h2>
-      <p>반복 일정과 30분 전 자동 알림은 다음 MVP에서 제공할 예정입니다. 지금의 클릭은 서비스 수요를 확인하는 데 반영됩니다.</p>
-      <button class="button button-primary dialog-confirm" type="button">확인</button>
+      <p class="eyebrow">ROUTINE SAVED</p>
+      <h2 id="dialog-title">반복 알림 신청 의향이 기록됐어요.</h2>
+      <p id="dialog-schedule">선택한 요일의 러닝 30분 전에 날씨를 자동으로 확인하는 기능을 준비하고 있어요.</p>
+      <button class="primary-button dialog-confirm" type="button">확인</button>
     </dialog>
 
     <script type="module" src="./app.js"></script>
