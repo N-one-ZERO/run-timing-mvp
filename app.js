@@ -214,6 +214,7 @@ function renderResult(weather, decision, occurrence) {
   $("#result-icon").textContent = decision.eligible ? "✓" : "!";
   $("#result-label").textContent = decision.eligible ? "달릴 준비 완료" : "조건을 다시 확인해요";
   $("#result-title").textContent = decision.eligible ? "다음 일정, 달리기 좋아요." : "오늘은 집콕이다!!!";
+  $("#result-subtitle").textContent = decision.eligible ? "설정한 기준에 딱 맞는 날씨예요." : "설정한 기준에 맞지 않는 날씨예요.";
   $("#result-schedule").textContent = scheduleText();
   $("#result-time").textContent = new Intl.DateTimeFormat("ko-KR", { month: "long", day: "numeric", weekday: "short", hour: "numeric", minute: "2-digit" }).format(occurrence.date);
   $("#result-location").textContent = state.location.name;

@@ -187,6 +187,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; background: whi
 .result-header { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
 .result-label { display: inline-flex; margin-bottom: 8px; padding: 5px 9px; color: #526078; background: #edf2ee; border-radius: 999px; font-size: 10px; font-weight: 800; }
 .result-copy h2 { margin: 0; font-size: 35px; line-height: 1.2; letter-spacing: -.055em; }
+.result-subtitle { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
 .result-icon { width: 50px; height: 50px; display: grid; place-items: center; flex: none; color: var(--navy); background: var(--lime); border-radius: 15px; font-size: 23px; font-weight: 800; }
 .result-card.is-negative .result-icon { color: white; background: var(--danger); }
 .result-schedule-row { margin: 22px 0 12px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--ink); background: #eef5f0; border: 1px solid rgba(16,24,45,.06); border-radius: 15px; }
@@ -283,6 +284,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .result-header { gap: 12px; }
   .result-label { margin-bottom: 6px; padding: 4px 8px; font-size: 9px; }
   .result-copy h2 { font-size: 27px; line-height: 1.18; }
+  .result-subtitle { margin-top: 5px; font-size: 10px; }
   .result-icon { width: 44px; height: 44px; border-radius: 13px; font-size: 20px; }
   .result-schedule-row { margin: 14px 0 8px; padding: 11px 12px; gap: 8px; }
   .result-schedule-row > div strong { font-size: 14px; }
